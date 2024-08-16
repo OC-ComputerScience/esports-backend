@@ -33,7 +33,7 @@ jobs:
           echo CLIENT_ID ="$CLIENT_ID" >> .env
           echo CLIENT_SECRET = "$CLIENT_SECRET" >> .env
 
-      - run: npm run bundle
+      - run: npm run winbundle
 
       - name: Copy folder content recursively to remote
         uses: garygrossgarten/github-action-scp@release
