@@ -27,7 +27,6 @@ var corsOptions = {
 app.use(cors(corsOptions));
 app.options("*", cors());
 
-
 // parse requests of content-type - application/json
 app.use(json());
 
