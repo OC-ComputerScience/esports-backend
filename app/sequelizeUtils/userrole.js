@@ -16,7 +16,7 @@ exports.createUserRole = async (userRoleData) => {
   }
 
   // make sure we don't create a duplicate value
-  let existingUserRole = await this.findOneForUserForRole(
+  let existingUserRole = await exports.findOneForUserForRole(
     userRoleData.userId,
     userRoleData.roleId,
   );
