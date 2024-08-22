@@ -6,10 +6,11 @@ const Op = db.Sequelize.Op;
 const exports = {};
 
 exports.create = (req, res) => {
+  const { userId } = req.params;
   //Validate request
-  if (!req.body.title) {
+  if (!userId) {
     res.status(400).send({
-      message: "Title can't be empty",
+      message: "User can't be empty",
     });
   } else if (!req.body.gamerTag) {
     res.status(400).send({
@@ -22,14 +23,15 @@ exports.create = (req, res) => {
     id: req.body.id,
     userId: req.params.userId,
     aliasType: req.params.aliasType,
-    title: req.body.title,
+    teamId: req.body.title,
     gamerTag: req.body.gamerTag,
   };
 
   // Save Alias in the database
 
-  Alias.findAll({ where: { aliasType: "Primary" } })
+  Alias.findAll({ where: { userId: userId } })
     .then((data) => {
+      console.log(data);
       if (data.length != 0) {
         alias.aliasType = "Alternate";
       } else {
