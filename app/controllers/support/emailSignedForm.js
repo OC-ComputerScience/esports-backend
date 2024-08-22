@@ -24,13 +24,18 @@ const emailSignedForm = async (userSignature) => {
     throw "Error Generating Signed Form";
   }
 
+  const fileAttachment = {
+    filename: "PlayerAgreement.pdf",
+    content: pdfBytes,
+  };
+
   sendMail(
     director.email,
     user.email,
     "",
     "Signed Player Agreement",
     "Hello,\n\n Here is your signed player agreement",
-    pdfBytes,
+    fileAttachment,
   );
 };
 
