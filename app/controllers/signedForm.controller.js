@@ -6,8 +6,6 @@ import Helpers from "./support/signedFormHelpers.js";
 
 import FormVersion from "../models/formVersion.model.js";
 
-import sendMail from "../utilities/sendMail.js";
-
 const exports = {};
 
 // Find all Matches
@@ -36,15 +34,6 @@ exports.modifyAndReturn = async (req, res) => {
           director,
           userSignature,
           formVersionId,
-        );
-
-        sendMail(
-          "jonathan.booker@eagles.oc.edu",
-          "jonathan.booker@eagles.oc.edu",
-          "",
-          "Signed Player Agreement",
-          "Hello,\n\n Here is your signed player agreement",
-          { filename: "playerAgreement.pdf", content: pdfBytes },
         );
 
         res.status(200).send(pdfBytes);
