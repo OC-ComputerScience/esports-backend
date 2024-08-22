@@ -26,7 +26,7 @@ const emailSignedForm = async (userSignature) => {
 
   const fileAttachment = {
     filename: "PlayerAgreement.pdf",
-    content: pdfBytes,
+    content: "data:application/pdf;base64," + pdfBytes,
   };
 
   sendMail(
