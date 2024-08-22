@@ -112,7 +112,7 @@ export const isDirector = async (req, res, next) => {
       if (session.userId != null) {
         console.log(session.userId);
         await UserRole.findAll({
-          where: { userId: session.userId},
+          where: { userId: session.userId },
           as: "userrole",
           include: [
             {
