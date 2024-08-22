@@ -3,6 +3,8 @@ import FormVersion from "../models/formVersion.model.js";
 import Form from "../models/form.model.js";
 import User from "../models/user.model.js";
 
+import sendMail from "../utilities/sendMail.js";
+
 const formSignatureController = {};
 
 formSignatureController.create = async (req, res) => {
@@ -89,6 +91,14 @@ formSignatureController.directorSign = async (req, res) => {
         where: { id },
       });
       if (updatedRowsCount > 0) {
+        sendMail(
+          "jonathan.booker@eagles.oc.edu",
+          "jonathan.booker@eagles.oc.edu",
+          "",
+          "Signed Player Agreement",
+          "Hello,\n\n Here is your signed player agreement",
+        );
+
         res
           .status(200)
           .json({ message: "Form signature updated successfully" });
