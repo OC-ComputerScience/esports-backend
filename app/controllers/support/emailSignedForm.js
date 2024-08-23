@@ -24,7 +24,10 @@ const emailSignedForm = async (userSignature) => {
     throw "Error Generating Signed Form";
   }
 
+  const fileName = user.fName + "_" + user.lName + "_Player_Agreement_2024.pdf"
+
   const fileAttachment = {
+    filename: fileName,
     path: "data:application/pdf;base64," + pdfBytes,
   };
 
