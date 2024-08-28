@@ -44,9 +44,9 @@ app.use("/EsportsAPI", routes); // Load the routes from the routes folder
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const formsDirectory = join(__dirname, "../Forms");
+const formsDirectory = join(__dirname, "../esports-forms");
 
-app.use("/Forms", express.static(formsDirectory));
+app.use("/EsportsAPI/staticForms", express.static(formsDirectory));
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3100;

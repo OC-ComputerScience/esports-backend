@@ -35,6 +35,7 @@ exports.modifyAndReturn = async (req, res) => {
           userSignature,
           formVersionId,
         );
+
         res.status(200).send(pdfBytes);
       }
     } else {

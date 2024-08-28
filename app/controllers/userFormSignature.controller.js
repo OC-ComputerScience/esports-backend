@@ -3,6 +3,8 @@ import FormVersion from "../models/formVersion.model.js";
 import Form from "../models/form.model.js";
 import User from "../models/user.model.js";
 
+import emailSignedForm from "./support/emailSignedForm.js";
+
 const formSignatureController = {};
 
 formSignatureController.create = async (req, res) => {
@@ -89,9 +91,17 @@ formSignatureController.directorSign = async (req, res) => {
         where: { id },
       });
       if (updatedRowsCount > 0) {
-        res
-          .status(200)
-          .json({ message: "Form signature updated successfully" });
+        try {
+          emailSignedForm(userSignature);
+
+          res
+            .status(200)
+            .json({ message: "Form signature updated successfully" });
+        } catch {
+          res
+            .status(500)
+            .json({ message: "Error Sending Signed Form to Player" });
+        }
       } else {
         res
           .status(404)
