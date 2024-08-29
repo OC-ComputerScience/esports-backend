@@ -23,19 +23,23 @@ helpers.getSignedPDF = async (
   signature,
   formVersionId,
 ) => {
-  const existingPDF = await loadExistingPDF(formVersionId);
+  try {
+    const existingPDF = await loadExistingPDF(formVersionId);
 
-  const pdfDoc = await PDFDocument.load(existingPDF);
-  const form = pdfDoc.getForm();
+    const pdfDoc = await PDFDocument.load(existingPDF);
+    const form = pdfDoc.getForm();
 
-  pdfDoc.registerFontkit(fontkit);
+    pdfDoc.registerFontkit(fontkit);
 
-  await fillFields(pdfDoc, fields, user, director, signature);
+    await fillFields(pdfDoc, fields, user, director, signature);
 
-  form.flatten();
-  const pdfBytes = await pdfDoc.saveAsBase64();
+    form.flatten();
+    const pdfBytes = await pdfDoc.saveAsBase64();
 
-  return pdfBytes;
+    return pdfBytes;
+  } catch {
+    throw "Issue Filling Form Fields";
+  }
 };
 
 helpers.getUserSignature = async (userId, formVersionId) => {
@@ -93,7 +97,7 @@ const loadExistingPDF = async (formVersion) => {
   return fs.readFileSync(
     path.join(
       __dirname,
-      `../../../../Forms/${requestedVersion.form.name}/${requestedVersion.source}`,
+      `../../../../esports-forms/${requestedVersion.source}`,
     ),
   );
 };
