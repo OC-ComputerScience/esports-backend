@@ -4,6 +4,26 @@ import User from "../../models/user.model.js";
 
 import sendMail from "../../utilities/sendMail.js";
 
+const getEmailBody = (playerName) => {
+  const body = `Dear ${playerName},
+
+    \tAttached to this email, you will find the signed copy of your player agreement. 
+    We're excited to have you on board and look forward to a successful year together. 
+    Please take a moment to review the document if you have not already, and don’t hesitate to reach out if you have any questions or need any clarifications. 
+    Looking forward to working with you!
+
+  Blessings,
+  [image: Oklahoma Christian University]
+  Lucas Hayworth, MBA
+  Oklahoma Christian University
+  Director of Esports | Athletics
+  405.305.2692 | Discord <https://discord.gg/dexz9Ev> & Twitter
+  <https://twitter.com/Maestraeux> @Maestraeux
+  `;
+
+  return body;
+};
+
 const emailSignedForm = async (userSignature) => {
   const { userId, formVersionId, directorUserId } = userSignature;
 
@@ -36,7 +56,7 @@ const emailSignedForm = async (userSignature) => {
     user.email,
     "",
     "Signed Player Agreement",
-    "Hello,\n\n Here is your signed player agreement",
+    getEmailBody(user.fName),
     fileAttachment,
   );
 };
