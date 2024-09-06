@@ -27,7 +27,7 @@ const sendMail = (from, to, cc, subject, body, attachments) => {
     to: to,
     cc: cc,
     subject: subject,
-    text: body,
+    html: body,
   };
 
   if (attachments) {
