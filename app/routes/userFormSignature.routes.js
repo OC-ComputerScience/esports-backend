@@ -18,7 +18,14 @@ router.post("/", [authenticate], formSignatureController.create);
 router.delete("/:id", [authenticate, isAdmin], formSignatureController.delete);
 
 // Get all Form Signatures
-router.get("/", [authenticate], formSignatureController.findAll);
+router.get("/", [authenticate, isAdmin], formSignatureController.findAll);
+
+// Get all Form Signatures for user
+router.get(
+  "/user/:userId",
+  [authenticate],
+  formSignatureController.findAllForUser,
+);
 
 // Get one Form Signature
 router.get("/:id", [authenticate], formSignatureController.findOne);
