@@ -4,6 +4,7 @@ import Form from "../models/form.model.js";
 import User from "../models/user.model.js";
 
 import emailSignedForm from "./support/emailSignedForm.js";
+import { getUserId } from "./support/utils.js";
 
 const formSignatureController = {};
 
@@ -45,6 +46,40 @@ formSignatureController.findOne = async (req, res) => {
 formSignatureController.findAll = async (req, res) => {
   try {
     const formSignatures = await FormSignature.findAll();
+    res.status(200).json(formSignatures);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: error.message || "Error retrieving form signatures" });
+  }
+};
+
+formSignatureController.findAllForUser = async (req, res) => {
+  const userId = await getUserId(req);
+  try {
+    const formSignatures = await FormSignature.findAll({
+      where: {
+        userId: userId,
+      },
+      include: [
+        {
+          model: FormVersion,
+          attributes: [
+            "id",
+            "effectiveDate",
+            "expireDate",
+            "source",
+            "requireDirectorSig",
+          ],
+          include: [
+            {
+              model: Form,
+              attributes: ["id", "name"],
+            },
+          ],
+        },
+      ],
+    });
     res.status(200).json(formSignatures);
   } catch (error) {
     res

@@ -83,19 +83,14 @@ exports.login = async (req, res) => {
       res.status(500).send({ message: err.message });
     });
 
-  // this lets us get the user id
+  // If user is not in the system, reject access
   if (user.id === undefined) {
-    console.log("need to get user's id");
+    console.log("User not registered. Access Denied");
     console.log(user);
-    await User.create(user)
-      .then((data) => {
-        console.log("user was registered");
-        user = data.dataValues;
-        // res.send({ message: "User was registered successfully!" });
-      })
-      .catch((err) => {
-        res.status(500).send({ message: err.message });
-      });
+
+    return res
+      .status(401)
+      .send({ message: "Access Denied! User not registered" });
   } else {
     console.log(user);
     // doing this to ensure that the user's name is the one listed with Google
