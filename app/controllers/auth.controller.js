@@ -103,7 +103,7 @@ exports.login = async (req, res) => {
           console.log("updated user's name");
         } else {
           console.log(
-            `Cannot update User with id=${user.id}. Maybe User was not found or req.body is empty!`
+            `Cannot update User with id=${user.id}. Maybe User was not found or req.body is empty!`,
           );
         }
       })
@@ -213,7 +213,7 @@ exports.authorize = async (req, res) => {
   const oauth2Client = new google.auth.OAuth2(
     process.env.CLIENT_ID,
     process.env.CLIENT_SECRET,
-    "postmessage"
+    "postmessage",
   );
 
   console.log("authorize token");
@@ -251,7 +251,7 @@ exports.authorize = async (req, res) => {
         console.log("updated user's google token stuff");
       } else {
         console.log(
-          `Cannot update User with id=${user.id}. Maybe User was not found or req.body is empty!`
+          `Cannot update User with id=${user.id}. Maybe User was not found or req.body is empty!`,
         );
       }
       let userInfo = {
