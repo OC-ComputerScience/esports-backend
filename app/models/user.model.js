@@ -49,8 +49,11 @@ const User = SequelizeInstance.define("user", {
       "Graduate",
     ),
   },
-  expectedGradDate: {
-    type: Sequelize.DATE,
+  expectedGradSemester: {
+    type: Sequelize.ENUM("Spring", "Fall"),
+  },
+  expectedGradYear: {
+    type: Sequelize.STRING(4),
   },
   activePlayer: {
     type: Sequelize.BOOLEAN,
